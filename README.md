@@ -13,6 +13,23 @@ Une application de to-do list simple conçue pour les professionnels de la sant�
 
 # Structure du Projet
 
+```
+FlowFactorTodo/
+├── FlowFactorTodo.API/          # Backend .NET 8
+│   ├── Controllers/
+│   ├── Models/
+│   ├── Program.cs
+│   └── FlowFactorTodo.API.csproj
+├── flowfactor-ui/               # Frontend Angular
+│   ├── src/
+│   │   ├── app/
+│   │   │   ├── services/
+│   │   │   └── task-list/
+│   │   └── main.ts
+│   └── package.json
+└── README.md
+```
+
 # Prérequis
 - .NET 8
 - Node.js (v18 ou supérieur)
