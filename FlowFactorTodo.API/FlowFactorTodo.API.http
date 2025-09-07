@@ -1,0 +1,21 @@
+@FlowFactorTodoAPI_HostAddress = http://localhost:5209
+### Get all tasks
+GET {{FlowFactorTodoAPI_HostAddress}}/tasks
+
+### Add a new task
+POST {{FlowFactorTodoAPI_HostAddress}}/tasks
+Content-Type: application/json
+
+{
+  "title": "New Task",
+  "description": "This is a new task",
+  "isCompleted": false
+}
+
+### Update task status
+PATCH {{FlowFactorTodoAPI_HostAddress}}/tasks/1
+Content-Type: application/json
+
+{
+  "statut": "Complété"
+}
