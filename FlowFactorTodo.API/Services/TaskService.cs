@@ -1,6 +1,10 @@
 using System;
+using FlowFactorTodo.API.Data;
 using FlowFactorTodo.API.Dtos;
 using FlowFactorTodo.API.Entities;
+using FlowFactorTodo.API.Mapping;
+using Microsoft.EntityFrameworkCore;
+
 namespace FlowFactorTodo.API.Services;
 
 public interface ITaskService
@@ -10,20 +14,39 @@ public interface ITaskService
     Task<TaskDetailsDTO> UpdateTaskStatusAsync(int id, UpdateTaskDTO updateTaskDto);
 }
 
-public class TaskService : ITaskService
+public class TaskService(AppDbContext context) : ITaskService
 {
-    public Task<TaskDetailsDTO> CreateTaskAsync(CreateTaskDTO createTaskDto)
+    private readonly AppDbContext _dbContext = context;
+
+    public async Task<TaskDetailsDTO> CreateTaskAsync(CreateTaskDTO createTaskDto)
     {
-        throw new NotImplementedException();
+        TodoTask createdTask = createTaskDto.ToEntity();
+
+        _dbContext.Tasks.Add(createdTask);
+        await _dbContext.SaveChangesAsync();
+        
+        return createdTask.ToTaskDetailsDTO();
     }
 
-    public Task<IEnumerable<TaskSummaryDTO>> GetAllTasksAsync()
+    public async Task<IEnumerable<TaskSummaryDTO>> GetAllTasksAsync()
     {
-        throw new NotImplementedException();
+        return await _dbContext.Tasks
+                        .Include(t => t.User)
+                        .AsNoTracking()
+                        .Select(task => task.ToTaskSummaryDTO())
+                        .ToListAsync();                    
     }
 
-    public Task<TaskDetailsDTO> UpdateTaskStatusAsync(int id, UpdateTaskDTO updateTaskDto)
+    public async Task<TaskDetailsDTO> UpdateTaskStatusAsync(int id, UpdateTaskDTO updateTaskDto)
     {
-        throw new NotImplementedException();
+        var existingTask = await _dbContext.Tasks.FindAsync(id) ?? throw new KeyNotFoundException($"Task with id {id} not found.");
+        if (updateTaskDto.Status is not null)
+        {
+            existingTask.Status = updateTaskDto.Status;
+        }
+
+        await _dbContext.SaveChangesAsync();
+
+        return existingTask.ToTaskDetailsDTO();
     }
 }
