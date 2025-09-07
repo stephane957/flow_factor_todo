@@ -18,9 +18,6 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Data\" />
-    <Folder Include="Dtos\" />
-    <Folder Include="Entities\" />
     <Folder Include="Mapping\" />
   </ItemGroup>
 

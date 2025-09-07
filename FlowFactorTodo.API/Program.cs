@@ -1,11 +1,16 @@
+using FlowFactorTodo.API.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
 var connString = builder.Configuration.GetConnectionString("FlowFactorTodo");
-//builder.Services.AddDbContext<FlowFactorTodoDbContext>(connString);
+
+// Add services to the container.
+//builder.Services.AddControllers();
+// Register the database context
+builder.Services.AddSqlite<AppDbContext>(connString);
 
 var app = builder.Build();
 
@@ -14,7 +19,6 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
-
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
