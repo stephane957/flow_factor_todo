@@ -1,4 +1,4 @@
-@FlowFactorTodoAPI_HostAddress = http://localhost:5209
+@FlowFactorTodoAPI_HostAddress = http://localhost:5209/api
 ### Get all tasks
 GET {{FlowFactorTodoAPI_HostAddress}}/tasks
 

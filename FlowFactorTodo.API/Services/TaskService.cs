@@ -18,16 +18,6 @@ public class TaskService(AppDbContext context) : ITaskService
 {
     private readonly AppDbContext _dbContext = context;
 
-    public async Task<TaskDetailsDTO> CreateTaskAsync(CreateTaskDTO createTaskDto)
-    {
-        TodoTask createdTask = createTaskDto.ToEntity();
-
-        _dbContext.Tasks.Add(createdTask);
-        await _dbContext.SaveChangesAsync();
-        
-        return createdTask.ToTaskDetailsDTO();
-    }
-
     public async Task<IEnumerable<TaskSummaryDTO>> GetAllTasksAsync()
     {
         return await _dbContext.Tasks
@@ -35,6 +25,16 @@ public class TaskService(AppDbContext context) : ITaskService
                         .AsNoTracking()
                         .Select(task => task.ToTaskSummaryDTO())
                         .ToListAsync();                    
+    }
+
+    public async Task<TaskDetailsDTO> CreateTaskAsync(CreateTaskDTO createTaskDto)
+    {
+        TodoTask createdTask = createTaskDto.ToEntity();
+
+        _dbContext.Tasks.Add(createdTask);
+        await _dbContext.SaveChangesAsync();
+
+        return createdTask.ToTaskDetailsDTO();
     }
 
     public async Task<TaskDetailsDTO> UpdateTaskStatusAsync(int id, UpdateTaskDTO updateTaskDto)
