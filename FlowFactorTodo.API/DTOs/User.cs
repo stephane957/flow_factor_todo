@@ -1,6 +1,6 @@
 namespace FlowFactorTodo.API.Dtos;
 
-public record class User
+public record class UserDTO
 (
     int Id,
     string FirstName,

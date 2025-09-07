@@ -23,7 +23,8 @@ public record class TaskDetailsDTO
     int Id,
     string Title,
     string? Description,
-    string Status
+    string Status,
+    int UserId
 );
 
 public record class TaskSummaryDTO

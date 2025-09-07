@@ -1,4 +1,5 @@
 using FlowFactorTodo.API.Data;
+using FlowFactorTodo.API.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,7 +9,8 @@ builder.Services.AddOpenApi();
 var connString = builder.Configuration.GetConnectionString("FlowFactorTodo");
 
 // Add services to the container.
-//builder.Services.AddControllers();
+builder.Services.AddControllers();
+builder.Services.AddScoped<ITaskService, TaskService>();
 // Register the database context
 builder.Services.AddSqlite<AppDbContext>(connString);
 
