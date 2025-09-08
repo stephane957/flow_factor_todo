@@ -40,60 +40,12 @@
   font-style: italic;
 }
 
-/*.error-message {
-  background-color: #fadbd8;
-  color: #c0392b;
-  padding: 15px;
-  border-radius: 4px;
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  
-  button {
-    background: none;
-    border: 1px solid #c0392b;
-    color: #c0392b;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    
-    &:hover {
-      background-color: #c0392b;
-      color: white;
-    }
-  }
-}*/
-
-/*.empty-state {
-  text-align: center;
-  padding: 40px;
-  background-color: #f9f9f9;
-  border-radius: 4px;
-  color: #7f8c8d;
-}*/
-
-/*.btn-refresh {
-  background-color: #3498db;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  
-  &:hover {
-    background-color: #2980b9;
-  }
-}*/
-
 .tasks {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-/* Styles pour l'indicateur de chargement */
 .loading-state {
   text-align: center;
   padding: 40px;
@@ -111,12 +63,6 @@
   }
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* Styles pour les messages d'erreur */
 .error-message {
   display: flex;
   align-items: center;
@@ -154,7 +100,6 @@
   }
 }
 
-/* Styles pour l'état vide */
 .empty-state {
   text-align: center;
   padding: 40px;
@@ -173,7 +118,6 @@
   }
 }
 
-/* Compteur de tâches */
 .tasks-count {
   background-color: #ecf0f1;
   padding: 10px;
@@ -183,7 +127,6 @@
   color: #7f8c8d;
 }
 
-/* Amélioration du bouton d'actualisation */
 .btn-refresh {
   display: flex;
   align-items: center;
@@ -217,26 +160,4 @@
   }
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .error-message {
-    flex-direction: column;
-    text-align: center;
-    
-    .error-icon {
-      margin-right: 0;
-      margin-bottom: 10px;
-    }
-  }
-  
-  .section-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    
-    .btn-refresh {
-      align-self: stretch;
-      justify-content: center;
-    }
-  }
-}
+

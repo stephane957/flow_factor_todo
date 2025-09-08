@@ -51,17 +51,19 @@
         margin-top: 5px;
         display: block;
     }
+}
 
-    .separator {
-        height: 100px;
-        margin: 200px;
-        color: transparent;
-    }   
+.btn-primary {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
 
-
-    @media (max-width: 770px) {
-        .task-form {
-            padding: 15px;
-        }
-    }
+  &:hover {
+    background-color: darken(#3498db, 5%);
+  }
 }
