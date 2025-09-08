@@ -13,6 +13,18 @@
         <span class="error-message"  *ngIf="isFieldInvalid('title')">Le titre est requis.</span>
     </div>
 
+        <div class="form-group" [class.error]="isFieldInvalid('description')">
+        <label for="description">Description</label>
+        <input
+            type="text"
+            id="description"
+            [(ngModel)]="newTask.description"
+            name="description"
+            placeholder="Description de la tâche"
+            required>
+        <span class="error-message"  *ngIf="isFieldInvalid('description')">La description est requise.</span>
+    </div>
+
     <div class="form-group" [class.error]="isFieldInvalid('user')">
         <label for="assignedUser">Assigné à *</label>
         <input 
@@ -20,7 +32,15 @@
             id="assignedUser" 
             [(ngModel)]="newTask.user.firstName" 
             name="assignedUser"
-            placeholder="Prenom du professionnel">
+            placeholder="Prenom du professionnel"
+            required>
+        <input 
+            type="text" 
+            id="assignedUser" 
+            [(ngModel)]="newTask.user.lastName" 
+            name="assignedUser"
+            placeholder="Nom du professionnel"
+            required>
         <span class="error-message" *ngIf="isFieldInvalid('user')">
             L'assignation d'un utilisateur est requise 
         </span>
