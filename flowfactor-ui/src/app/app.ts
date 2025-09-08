@@ -9,7 +9,6 @@ import { TaskListComponent } from './components/task-list/task-list.component';
   template: `
     <div class="app-container">
       <app-task-list></app-task-list>
-      <p> Hello World!</p>
     </div>
   `,
   styles: [`
