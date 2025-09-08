@@ -31,6 +31,7 @@
         font-size: 14px;
         transition: border-color 0.3s;
 
+
         &:focus {
         outline: none;
         border-color: #3498db;
@@ -51,27 +52,14 @@
         display: block;
     }
 
-    .btn-primary {
-        background-color: #3498db;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 16px;
-        transition: background-color 0.3s;
+    .separator {
+        height: 100px;
+        margin: 200px;
+        color: transparent;
+    }   
 
-        &:hover {
-            background-color: #2980b9;
-        }
 
-        &:disabled {
-            background-color: #bdc3c7;
-            cursor: not-allowed;
-        }
-    }
-
-    @media (max-width: 768px) {
+    @media (max-width: 770px) {
         .task-form {
             padding: 15px;
         }

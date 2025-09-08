@@ -14,7 +14,7 @@
     </div>
 
         <div class="form-group" [class.error]="isFieldInvalid('description')">
-        <label for="description">Description</label>
+        <label for="description">Description *</label>
         <input
             type="text"
             id="description"
@@ -29,19 +29,20 @@
         <label for="assignedUser">Assigné à *</label>
         <input 
             type="text" 
-            id="assignedUser" 
+            id="assignedUserFirstName" 
             [(ngModel)]="newTask.user.firstName" 
-            name="assignedUser"
+            name="assignedUserFirstName"
             placeholder="Prenom du professionnel"
             required>
+        <span class="separator"></span>
         <input 
             type="text" 
-            id="assignedUser" 
+            id="assignedUserLastName" 
             [(ngModel)]="newTask.user.lastName" 
-            name="assignedUser"
+            name="assignedUserLastName"
             placeholder="Nom du professionnel"
             required>
-        <span class="error-message" *ngIf="isFieldInvalid('user')">
+        <span class="error-message" *ngIf="isFieldInvalid('user.firstName') || isFieldInvalid('user.lastName')">
             L'assignation d'un utilisateur est requise 
         </span>
     </div>
@@ -54,7 +55,7 @@
         name="status">
         <option value="À faire">À faire</option>
         <option value="En cours">En cours</option>
-        <option value="Terminé">Terminé</option>
+        <option value="Complété">Complété</option>
         </select>
     </div>
 

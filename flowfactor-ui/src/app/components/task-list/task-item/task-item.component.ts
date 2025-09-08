@@ -7,25 +7,29 @@ import { TodoTask, UpdateTaskDto } from '../../../interfaces/todo-task';
   selector: 'app-task-item',
   imports: [CommonModule, FormsModule],
   templateUrl: './task-item.component.html',
-  styleUrls: ['./task-item.component.scss']
+  styleUrls: ['./task-item.component.scss'],
 })
 export class TaskItemComponent {
   @Input() task!: TodoTask;
-  @Output() statusChanged = new EventEmitter<{id?: number, status: UpdateTaskDto}>();
+  @Output() statusChanged = new EventEmitter<{ id?: number; status: UpdateTaskDto }>();
 
-  onStatusChange(newStatus: 'À faire' | 'En cours' | 'Terminé') {
+  onStatusChange(newStatus: 'À faire' | 'En cours' | 'Complété'): void {
     this.statusChanged.emit({
       id: this.task.id!,
-      status: { status: newStatus }
+      status: { status: newStatus },
     });
   }
 
   getStatusClass(status: string): string {
     switch (status) {
-      case 'À faire': return 'status-todo';
-      case 'En cours': return 'status-progress';
-      case 'Terminé': return 'status-done';
-      default: return '';
+      case 'À faire':
+        return 'status-todo';
+      case 'En cours':
+        return 'status-progress';
+      case 'Complété':
+        return 'status-done';
+      default:
+        return '';
     }
   }
 }
