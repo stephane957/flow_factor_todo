@@ -1,3 +1,4 @@
+<!-- src/app/components/task-list/task-list.component.html -->
 <div class="task-list-container">
   <header class="task-header">
     <h1>To-Do List pour Professionnels de Santé</h1>
@@ -9,26 +10,56 @@
   <div class="tasks-section">
     <div class="section-header">
       <h2>Liste des Tâches</h2>
-      <button (click)="loadTasks()" class="btn-refresh">Actualiser</button>
+      <button 
+        (click)="refreshTasks()" 
+        class="btn-refresh" 
+        [disabled]="(loading$ | async) === true">
+        <span *ngIf="loading$ | async; else refreshText">
+          <span class="spinner"></span> Chargement...
+        </span>
+        <ng-template #refreshText>Actualiser</ng-template>
+      </button>
     </div>
 
-    <div *ngIf="loading" class="loading">Chargement des tâches...</div>
-    
+    <!-- Indicateur de chargement global -->
+    <div *ngIf="loading$ | async" class="loading-state">
+      <div class="spinner"></div>
+      <p>Chargement des tâches...</p>
+    </div>
+
+    <!-- Message d'erreur global -->
     <div *ngIf="error" class="error-message">
-      {{ error }}
-      <button (click)="loadTasks()">Réessayer</button>
+      <div class="error-icon">⚠️</div>
+      <div class="error-content">
+        <p>{{ error }}</p>
+        <button (click)="refreshTasks()" class="btn-retry">Réessayer</button>
+      </div>
     </div>
 
-    <div *ngIf="!loading && tasks.length === 0" class="empty-state">
-      <p>Aucune tâche pour le moment. Ajoutez votre première tâche ci-dessus.</p>
-    </div>
+    <!-- Contenu principal lorsque ni chargement ni erreur -->
+    <ng-container *ngIf="!(loading$ | async) && !error">
+      <!-- Utilisation de l'async pipe pour obtenir les tâches -->
+      <ng-container *ngIf="tasks$ | async as tasks">
+        <!-- Affichage si des tâches existent -->
+        <div class="tasks" *ngIf="tasks.length > 0">
+          <div class="tasks-count">
+            {{ tasks.length }} tâche(s) au total
+          </div>
+          
+          <app-task-item 
+            *ngFor="let task of tasks; trackBy: trackByTaskId"
+            [task]="task"
+            (statusChanged)="onStatusChanged($event)">
+          </app-task-item>
+        </div>
 
-    <div class="tasks" *ngIf="!loading && tasks.length > 0">
-      <app-task-item 
-        *ngFor="let task of tasks; trackBy: trackByTaskId"
-        [task]="task"
-        (statusChanged)="onStatusChanged($event)">
-      </app-task-item>
-    </div>
+        <!-- Message si aucune tâche -->
+        <div *ngIf="tasks.length === 0" class="empty-state">
+          <div class="empty-icon">📋</div>
+          <h3>Aucune tâche pour le moment</h3>
+          <p>Ajoutez votre première tâche en utilisant le formulaire ci-dessus.</p>
+        </div>
+      </ng-container>
+    </ng-container>
   </div>
 </div>

@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskService } from '../../services/task.service';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { TodoTask, CreateTaskDto, UpdateTaskDto } from '../../interfaces/todo-task';
 import { TaskFormComponent } from '../task-form/task-form.component';
 import { TaskItemComponent } from './task-item/task-item.component';
@@ -10,60 +12,47 @@ import { TaskItemComponent } from './task-item/task-item.component';
   standalone: true,
   imports: [CommonModule, TaskFormComponent, TaskItemComponent],
   templateUrl: './task-list.component.html',
-  styleUrls: ['./task-list.component.scss']
+  styleUrls: ['./task-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TaskListComponent implements OnInit {
-  tasks: TodoTask[] = [];
-  loading = true;
+  tasks$: Observable<TodoTask[]>;
+  loading$: Observable<boolean>;
   error: string | null = null;
 
-  constructor(private taskService: TaskService) {}
-
-  ngOnInit(): void {
-    this.loadTasks();
+  constructor(private taskService: TaskService) {
+    this.tasks$ = this.taskService.tasks$;
+    this.loading$ = this.taskService.loading$;
   }
-
-  loadTasks(): void {
-    this.loading = true;
-    this.error = null;
-    
-    this.taskService.getTasks().subscribe({
-      next: (tasks) => {
-        this.tasks = tasks;
-        this.loading = false;
-      },
-      error: (err) => {
-        this.error = 'Erreur lors du chargement des tâches';
-        this.loading = false;
-        console.error('Error loading tasks:', err);
-      }
-    });
+  ngOnInit(): void {
+    // Initial load is handled by the service constructor
   }
 
   onTaskCreated(taskData: CreateTaskDto): void {
-    this.taskService.createTask(taskData).subscribe({
-      next: (newTask) => {
-        this.tasks.push(newTask);
-      },
-      error: (err) => {
-        this.error = 'Erreur lors de la création de la tâche';
-        console.error('Error creating task:', err);
-      }
-    });
+    this.error = null;
+    this.taskService.createTask(taskData).pipe(
+      catchError((err) => {
+        this.error = err.message;
+        return of(null);
+      })
+    ).subscribe();
   }
 
   onStatusChanged(event: {id?: number, status: UpdateTaskDto}): void {
-    this.taskService.updateStatus(event.id!, event.status).subscribe({
-      error: (err) => {
-        this.error = 'Erreur lors de la mise à jour de la tâche';
-        console.error('Error updating task:', err);
-        // Recharger les tâches pour récupérer l'état correct
-        this.loadTasks();
-      }
-    });
+    this.taskService.updateStatus(event.id!, event.status).pipe(
+      catchError((err) => {
+        this.error = err.message;
+        return of(null);
+      })
+    ).subscribe();
   }
 
   trackByTaskId(index: number, task: TodoTask): number {
     return task.id!;
+  }
+
+  refreshTasks(): void {
+    this.error = null;
+    this.taskService.loadTasks();
   }
 }
