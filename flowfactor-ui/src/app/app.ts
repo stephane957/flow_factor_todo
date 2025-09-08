@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { TaskFormComponent } from './components/task-form/task-form.component';
 import { TaskListComponent } from './components/task-list/task-list.component';
-import { TaskItem } from './components/task-list/task-item/task-item.component';
 
 @Component({
   selector: 'app-root',

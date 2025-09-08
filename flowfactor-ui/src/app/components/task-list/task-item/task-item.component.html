@@ -1,1 +1,23 @@
-<p>task-item works!</p>
+<div class="task-item" [class]="getStatusClass(task.status)">
+  <div class="task-header">
+    <h4>{{ task.title }}</h4>
+    <span class="task-status">{{ task.status }}</span>
+  </div>
+  
+  <p class="task-description" *ngIf="task.description">{{ task.description }}</p>
+  
+  <div class="task-meta">
+    <span class="assigned-to">Assigné à: {{ task.user }}</span>
+  </div>
+  
+  <div class="task-actions">
+    <label>Changer le statut:</label>
+    <select 
+      [value]="task.status" 
+      (change)="onStatusChange($any($event.target).value)">
+      <option value="À faire">À faire</option>
+      <option value="En cours">En cours</option>
+      <option value="Terminé">Terminé</option>
+    </select>
+  </div>
+</div>
