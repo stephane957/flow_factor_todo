@@ -285,7 +285,8 @@ ServiceFabricBackup/
 # SQLite files
 *.db
 *.sqlite
-.db-*
+*.db-shm
+*.db-wal
 
 *.http
 
