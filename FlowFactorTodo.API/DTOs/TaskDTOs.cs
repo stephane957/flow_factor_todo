@@ -31,6 +31,7 @@ public record class TaskSummaryDTO
 (
     int Id,
     string Title,
+    string? Description,
     string Status,
     string User
 );

@@ -22,6 +22,7 @@ public static class TaskMapping
         (
             Id: task.Id,
             Title: task.Title,
+            Description: task.Description,
             Status: task.Status,
             User: task.User!.FirstName + " " + task.User!.LastName
         );
