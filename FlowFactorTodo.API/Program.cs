@@ -13,6 +13,17 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<ITaskService, TaskService>();
 // Register the database context
 builder.Services.AddSqlite<AppDbContext>(connString);
+// Add CORS policy - Allow Angular app from localhost:4200
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:4200")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
 
 var app = builder.Build();
 
@@ -22,8 +33,10 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+app.UseCors("AllowAngularApp");
 app.UseAuthorization();
 app.MapControllers();
+
 await app.MigrateDbAsync();
 
 app.Run();
