@@ -1,15 +1,17 @@
+import { User } from "./user";
+
 export interface TodoTask {  
   id?: number;  
   title: string;  
   description?: string;  
   status: string;  
-  user: string;  
+  user: User;  
 } 
 export interface CreateTaskDto {
   title: string;
   description: string;
   status: 'À faire' | 'En cours' | 'Terminé';
-  user: string;
+  user: User;
 }
 
 export interface UpdateTaskDto {
