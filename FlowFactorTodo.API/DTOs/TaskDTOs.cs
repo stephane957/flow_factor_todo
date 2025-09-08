@@ -1,6 +1,7 @@
 namespace FlowFactorTodo.API.Dtos;
 
 using System.ComponentModel.DataAnnotations;
+using FlowFactorTodo.API.Entities;
 
 public class CreateTaskDTO
 {
@@ -15,7 +16,7 @@ public class CreateTaskDTO
     public required string Status { get; set; } = "À faire";
 
     [Required]
-    public int UserId { get; set; }
+    public required User User { get; set; }
 }
 
 public record class TaskDetailsDTO

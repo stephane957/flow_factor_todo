@@ -5,14 +5,14 @@ namespace FlowFactorTodo.API.Mapping;
 
 public static class TaskMapping
 {
-    public static TodoTask ToEntity(this CreateTaskDTO createTaskDto)
+    public static TodoTask ToEntity(this CreateTaskDTO createTaskDto, int userId)
     {
         return new TodoTask
         {
             Title = createTaskDto.Title,
             Description = createTaskDto.Description,
             Status = createTaskDto.Status,
-            UserId = createTaskDto.UserId
+            UserId = userId
         };
     }
 

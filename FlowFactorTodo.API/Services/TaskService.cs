@@ -29,7 +29,22 @@ public class TaskService(AppDbContext context) : ITaskService
 
     public async Task<TaskDetailsDTO> CreateTaskAsync(CreateTaskDTO createTaskDto)
     {
-        TodoTask createdTask = createTaskDto.ToEntity();
+        // Ensure the user exists or create a new one
+        var user = await _dbContext.Users
+                        .FirstOrDefaultAsync(u => u.FirstName == createTaskDto.User.FirstName && u.LastName == createTaskDto.User.LastName);
+        if (user == null)
+        {
+            user = new User
+            {
+                FirstName = createTaskDto.User.FirstName,
+                LastName = createTaskDto.User.LastName
+            };
+            _dbContext.Users.Add(user);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        // Adds the new task
+        TodoTask createdTask = createTaskDto.ToEntity(user.Id);
 
         _dbContext.Tasks.Add(createdTask);
         await _dbContext.SaveChangesAsync();
