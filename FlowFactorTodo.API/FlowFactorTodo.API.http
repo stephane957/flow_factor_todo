@@ -7,9 +7,10 @@ POST {{FlowFactorTodoAPI_HostAddress}}/tasks
 Content-Type: application/json
 
 {
-  "title": "New Task",
-  "description": "This is a new task",
-  "isCompleted": false
+    "title": "New Task (2)",
+    "description": "This is the second task",
+    "status": "À faire",
+    "userId": 5
 }
 
 ### Update task status
@@ -17,5 +18,5 @@ PATCH {{FlowFactorTodoAPI_HostAddress}}/tasks/1
 Content-Type: application/json
 
 {
-  "statut": "Complété"
+    "status": "En cours"
 }

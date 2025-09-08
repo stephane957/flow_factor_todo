@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FlowFactorTodo.API.Controllers
 {
     [ApiController]
-    [Route("api/tasks")]
+    [Route("api/[controller]")]
 
     public class TasksController(ITaskService taskService) : ControllerBase
     {
@@ -28,7 +28,7 @@ namespace FlowFactorTodo.API.Controllers
             return CreatedAtAction(nameof(GetAllTasks), new { id = createdTask.Id }, createdTask);
         }
 
-        [HttpPatch("{id}")]
+        [HttpPatch("{id:int}")]
         public async Task<IActionResult> UpdateTaskStatus(int id, [FromBody] UpdateTaskDTO updateTaskDto)
         {
             if (!ModelState.IsValid)
