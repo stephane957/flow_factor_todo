@@ -7,9 +7,9 @@ POST {{FlowFactorTodoAPI_HostAddress}}/tasks
 Content-Type: application/json
 
 {
-    "title": "New Task (3)",
-    "description": "This is the third task",
-    "status": "Complétée",
+    "title": "New Task (1)",
+    "description": "This is the first task",
+    "status": "À faire",
     "user": {
         "firstName": "Sigmund",
         "lastName": "Freud"

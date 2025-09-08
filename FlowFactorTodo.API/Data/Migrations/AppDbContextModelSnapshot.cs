@@ -40,7 +40,7 @@ namespace FlowFactorTodo.API.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Tasks");
+                    b.ToTable("Tasks", (string)null);
                 });
 
             modelBuilder.Entity("FlowFactorTodo.API.Entities.User", b =>
@@ -59,39 +59,7 @@ namespace FlowFactorTodo.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            FirstName = "John",
-                            LastName = "Smith"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            FirstName = "Jane",
-                            LastName = "Smith"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            FirstName = "Sigmund",
-                            LastName = "Freud"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            FirstName = "Emmanuel",
-                            LastName = "Kant"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            FirstName = "Friedrich",
-                            LastName = "Nietzsche"
-                        });
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("FlowFactorTodo.API.Entities.TodoTask", b =>
