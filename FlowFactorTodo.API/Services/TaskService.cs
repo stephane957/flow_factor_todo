@@ -9,7 +9,7 @@ namespace FlowFactorTodo.API.Services;
 
 public interface ITaskService
 {
-    Task<TaskDetailsDTO> CreateTaskAsync(CreateTaskDTO createTaskDto);
+    Task<TaskSummaryDTO> CreateTaskAsync(CreateTaskDTO createTaskDto);
     Task<IEnumerable<TaskSummaryDTO>> GetAllTasksAsync();
     Task<TaskDetailsDTO> UpdateTaskStatusAsync(int id, UpdateTaskDTO updateTaskDto);
 }
@@ -27,7 +27,7 @@ public class TaskService(AppDbContext context) : ITaskService
                         .ToListAsync();                    
     }
 
-    public async Task<TaskDetailsDTO> CreateTaskAsync(CreateTaskDTO createTaskDto)
+    public async Task<TaskSummaryDTO> CreateTaskAsync(CreateTaskDTO createTaskDto)
     {
         // Ensure the user exists or create a new one
         var user = await _dbContext.Users
@@ -49,7 +49,7 @@ public class TaskService(AppDbContext context) : ITaskService
         _dbContext.Tasks.Add(createdTask);
         await _dbContext.SaveChangesAsync();
 
-        return createdTask.ToTaskDetailsDTO();
+        return createdTask.ToTaskSummaryDTO();
     }
 
     public async Task<TaskDetailsDTO> UpdateTaskStatusAsync(int id, UpdateTaskDTO updateTaskDto)
